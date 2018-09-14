@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Message Board</title>
+    <style>
+        h5#red {
+            color: red;
+        }
+        input#name {
+            width: 200px;
+        }
+        h4 {
+            margin: 3px;
+        }
+        h4.comment {
+            margin: 8px 0 0 20px;
+        }
+        textarea {
+            width: 300px;
+            height: 50px;
+        }
+        input#bottom {
+            margin-bottom: 40px;
+        }
+        div#comment {
+            margin: 25px 0 0 40px;
+        }
+        h5.message_comment {
+            margin: 10px 0 0 60px;
+        }
+        h5#red {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>The Dojo Message Board</h2>
+    <hr>
+<% if(messages.registration) { %>
+     <% for (var x of messages.registration) { %>
+      <h5 id="red"><%= x %></h5>
+     <% } %>
+ <% } %>
+    <form action="/message" method="POST">
+        <h4>Name:</h4>
+        <input type="text" name="name" id="name">
+        <h4>Message:</h4>
+        <textarea type="text" name="msg"></textarea><br>
+        <input type="submit" value="Post message" id="bottom">
+    </form>
+    <% for (x in mess) { %>
+        <h4 class="comment">Name: <%= mess[x].name%></h4>
+        <h4 class="comment">Message: <%= mess[x].msg%></h4>
+    <% for (var c of mess[x].comments) { %> 
+        <h5 class="message_comment">Name: <%= c.name%></h5>
+        <h5 class="message_comment">Comment: <%= c.comt%></h5>
+    <% } %>
+        <div id="comment">
+            <form action="/comment" method="POST">
+                <h4></h4>
+                <h4>Name:</h4>
+                <input type="text" name="name" id="name">
+                <h4>Comment:</h4>
+                <textarea type="text" name="comt"></textarea><br>
+                <input type="hidden" name="hide" value="<%= mess[x]._id%>">
+                <input type="submit" value="Post comment" id="bottom">
+            </form>
+        </div>
+    <% } %>
+</body>
+</html>
